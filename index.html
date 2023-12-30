@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Added elements to site</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+
+  <main class="main">
+    <div class="container">
+      <div class="main__top">
+        <div class="add-element active">
+          <div class="add-element__btn btn" id="add-btn">Добавить элемент</div>
+        </div>
+        <div class="create-element">
+          <div class="create-element__inner">
+            <div class="create-element__inp-wrapper">
+              <input type="text" id="num-img" placeholder="Введите номер картинки">
+            </div>
+            <div class="create-element__inp-wrapper">
+              <input type="text" id="title" placeholder="Введите название">
+            </div>
+            <div class="create-element__inp-wrapper">
+              <input type="text" id="size" placeholder="Введите размер">
+            </div>
+            <div class="create-element__inp-wrapper">
+              <input type="text" id="year" placeholder="Введите год производства">
+            </div>
+            <div class="create-element__inp-wrapper">
+              <input type="text" id="lvl" placeholder="Введите уровень из 10">
+            </div>
+            <div class="create-element__inp-wrapper">
+              <input type="text" id="price-old" placeholder="Введите старую цену">
+            </div>
+            <div class="create-element__inp-wrapper">
+              <input type="text" id="price-new" placeholder="Введите новую цену">
+            </div>
+            <div class="create-element__inp-wrapper">
+              <textarea id="descr" placeholder="Расскажите подробнее о товаре"></textarea>
+            </div>
+          </div>
+          <div class="create-element__btn btn" id="create-btn">Создать элемент</div>
+        </div>
+      </div>
+      <div class="main__inner">
+
+        <!-- <div class="object">
+          <div class="object__wrapper-img">
+            <img class="object__img" src="img/1.jpg" alt="item img">
+          </div>
+          <div class="object__inner">
+            <h3 class="object__title">
+              Фон 1
+            </h3>
+            <ul class="object__list">
+              <li class="object__list-item">
+                Размер: <span>250</span>
+              </li>
+              <li class="object__list-item">
+                Год производства: <span>2002</span>
+              </li>
+              <li class="object__list-item">
+                Уровень из 10: <span>4</span>
+              </li>
+            </ul>
+            <div class="object__price">
+              <p class="object__price-new">28000 <span>руб</span></p>
+              <p class="object__price-old">45000 <span>руб</span></p>
+            </div>
+          </div>
+        </div>
+
+        <div class="object">
+          <div class="object__wrapper-img">
+            <img class="object__img" src="img/2.jpg" alt="item img">
+          </div>
+          <div class="object__inner">
+            <h3 class="object__title">
+              Фон 2
+            </h3>
+            <ul class="object__list">
+              <li class="object__list-item">
+                Размер: <span>251</span>
+              </li>
+              <li class="object__list-item">
+                Год производства: <span>2003</span>
+              </li>
+              <li class="object__list-item">
+                Уровень из 10: <span>5</span>
+              </li>
+            </ul>
+            <div class="object__price">
+              <p class="object__price-new">29000 <span>руб</span></p>
+              <p class="object__price-old">38000 <span>руб</span></p>
+            </div>
+          </div>
+        </div> -->
+
+      </div>
+    </div>
+  </main>
+
+
+
+  <section class="popup active" id="popup">
+    <div class="popup-container container">
+      <div class="popup__inner">
+        <div class="popup-close-btn" id="close-popup">✖</div>
+        <div class="popup__wrapper-info" id="popup-info">
+          <div class="popup__info">
+            <h4 class="popup__title">
+              Фон 1
+            </h4>
+            <p class="popup__descr">
+              Далеко-далеко за словесными, горами в стране гласных и согласных живут рыбные тексты. Текстов гор
+              единственное
+              предупреждал не, всемогущая послушавшись! Рот текст выйти повстречался коварный переулка инициал? Lorem
+              правилами он до
+              осталось текст.
+              Точках это вдали там они сбить букв реторический эта использовало, за ты, предупредила рыбного заманивший,
+              моей знаках
+              лучше напоивший. Там эта своих безорфографичный свое страна lorem злых выйти одна имеет!
+              Lorem своего силуэт необходимыми диких сбить большой толку семантика дорогу своих деревни алфавит,
+              буквоград
+              запятой
+              семь заглавных рот послушавшись свое маленькая которое? Океана но осталось языкового проектах приставка
+              запятой
+              рекламных.
+            </p>
+            <div class="popup__wrapper-img">
+              <img class="popup__img" src="img/5.jpg" alt="item img">
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <script src="app.js"></script>
+</body>
+
+</html>
