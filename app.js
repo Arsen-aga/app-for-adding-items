@@ -1,22 +1,46 @@
+// Кнопка для перехода к заполнению данных объекта
 const addBtn = document.getElementById("add-btn");
+// Кнопка для создания нового объекта и вывода его на экран
 const createBtn = document.getElementById("create-btn");
+// Обертка для addBtn
 const addElementBlock = document.querySelector(".add-element");
+// Блок с инпутами - блок для заполнения
 const createElementBlock = document.querySelector(".create-element");
+// Блок для вывода всех объектов
 const listElement = document.querySelector(".main__inner");
+// body
+const body = document.querySelector("body");
 
-const closePopup = document.getElementById("close-popup");
-const popup = document.getElementById("popup");
-const infoPopup = document.getElementById("popup-info");
+//---------------ПОПАП--------------
+// Кнопка для закрытия попапа
+const closePopup = document.querySelector(".popup-close-btn");
+// Блок попап
+const popup = document.querySelector(".popup");
+// Обертка данных в попапе
+const infoPopup = document.querySelector(".popup__wrapper-info");
+// Задний фон попапа
+const bgPopup = document.querySelector(".popup-bg");
 
+//---------------ИНПУТЫ--------------------
+
+// Изображение
 const numImgElem = document.getElementById("num-img");
+// Заглавие
 const titleElem = document.getElementById("title");
+// Размер
 const sizeElem = document.getElementById("size");
+// Год
 const yearElem = document.getElementById("year");
+// Уровень
 const levelElem = document.getElementById("lvl");
+// Старая цена
 const priceOldElem = document.getElementById("price-old");
+// Новая цена
 const priceNewElem = document.getElementById("price-new");
+// Описание
 const descrElem = document.getElementById("descr");
 
+// Объект со всеми инпутами
 const inpArrValue = [
   numImgElem,
   titleElem,
@@ -28,7 +52,9 @@ const inpArrValue = [
   descrElem,
 ];
 
+// Массив готовыч данныч объектов для вывода на страницу
 const elementsList = [
+  // Первый объект
   {
     img: 1,
     title: "Фон 1",
@@ -41,6 +67,7 @@ const elementsList = [
 Optio quaerat totam minus explicabo, quae non veniam voluptates aperiam ipsam expedita, quibusdam illo architecto ipsum omnis vero consequuntur quod adipisci impedit aspernatur? Quam eligendi cumque distinctio nesciunt suscipit tenetur.
 Aperiam quibusdam inventore repellat voluptatum odit voluptas harum illum? Laudantium reiciendis quibusdam rerum ipsa, aspernatur at culpa sed asperiores nihil, nulla totam odit porro excepturi dolores eligendi. Amet, ea tenetur.`,
   },
+  // Второй объект
   {
     img: 2,
     title: "Фон 2",
@@ -55,65 +82,86 @@ Lorem своего силуэт необходимыми диких сбить �
   },
 ];
 
+// Функция рендер сразу выводит на экран все элементы массива
 function render() {
+  // Очистка блока-обертки всех элементов
   listElement.innerHTML = "";
+  // Итеррация массива по всем объектам
   for (let i = 0; i < elementsList.length; i++) {
+    // Добавление объекта после последнего объекта
     listElement.insertAdjacentHTML(
+      // после последнего елемента внутри данного блока (перед закрытием тега)
       "beforeend",
-      getNoteTemplate(elementsList[i], i)
+      // Вызов функции с уже готовым HTML кодом, в который попадают данные объектов
+      getNoteTemplate(elementsList[i], i) // объект, индекс объекта в массиве
     );
   }
 }
 
+// Вызов рендера, чтобы показать начальные объекты
 render();
 
+// Закрытие начального блока на странице и переход к блоку с инпутами
 addBtn.onclick = () => {
+  // Скрыть начальный блок
   addElementBlock.classList.remove("active");
+  // Показать блок с инпутами
   createElementBlock.classList.add("active");
 };
+// Создание объекта по клику кнопки, после заполнения инпутов и переход к начальному блоку
 createBtn.onclick = () => {
+  // Показать начальный блок
   addElementBlock.classList.add("active");
+  // Скрыть блок с инпутами
   createElementBlock.classList.remove("active");
 
-  createElementFromList(inpArrValue);
+  // Создание объекта и добавление его в общий массив
+  createElementFromList(inpArrValue); // (Массив инпутов)
+  // Вызов рендера, чтобы показать все объекты
   render();
-  console.log(elementsList);
+  // console.log(elementsList);
 };
 
+// Функция для создания нового объекта и для добавления его в общий массив объектов
 function createElementFromList(arr) {
+  // (Массив инпутов)
+  // Проверка инпутов на наличие данных
   const checkInputs = arr.every((e) => {
-    return e.value.length == 0;
+    // Если хотя бы у одного инпута будут данные, то создается объект
+    return e.value.length == 0; // Проверка длины значения инпута
   });
+  // Если у всех инпутов нет значения, то просто ничего не выводим
   if (checkInputs) {
     return;
+    // Если есть значение хотя бы у одного, то создаем объект и добавляем в массив
   } else {
+    // Добавляем объект в массив последним элементом
     elementsList.push({
-      img: numImgElem.value,
-      title: titleElem.value,
-      size: sizeElem.value,
-      year: yearElem.value,
-      level: levelElem.value,
-      priceOld: priceOldElem.value,
-      priceNew: priceNewElem.value,
-      description: descrElem.value,
+      // Добавление значений объекта
+      // Перед добавлением данных, вызывается функция по проверке инпутов на наличие значения
+      img: checkInnerInput(numImgElem.value, 1), // Если у инпута нет значения, то добавляется значение по умолчанию
+      title: checkInnerInput(titleElem.value, "Название"), // (инпут, значнеие по умолчанию) // если не ввести свое значение по умолчанию, то автоматически значением будет 1
+      size: checkInnerInput(sizeElem.value, "150*150"),
+      year: checkInnerInput(yearElem.value, 2000),
+      level: checkInnerInput(levelElem.value, 81),
+      priceOld: checkInnerInput(priceOldElem.value, 10_000),
+      priceNew: checkInnerInput(priceNewElem.value, 40_000),
+      description: checkInnerInput(descrElem.value, "Desription"),
     });
   }
+  // Очистка всех инпутов
   arr.forEach((e) => (e.value = ""));
 }
 
-listElement.onclick = (event) => {
-  // console.log(event.target);
-  console.log(event);
-  // console.log(event.target.dataset.index);
-};
-
+// Функция с готовым HTML кодом, которая принимающая данные объекта
 function getNoteTemplate(e, i) {
   return `
           <div class="object">
+          <div class="top-block" data-index="${i}"></div>
           <div class="object__wrapper-img">
             <img class="object__img" src="img/${e.img}.jpg" alt="item img">
           </div>
-          <div class="object__inner" data-index="${i}">
+          <div class="object__inner">
             <h3 class="object__title">
               ${e.title}
             </h3>
@@ -137,7 +185,59 @@ function getNoteTemplate(e, i) {
   `;
 }
 
+// Функция по проверке инпута на значение, если нет значения, то по умолчанию будте 1
+function checkInnerInput(elemValue, newValue = 1) {
+  return elemValue.length === 0 ? newValue : elemValue;
+}
 
-closePopup.onclick = () => {
-  popup.classList.remove('active');
+// popup scripts
+
+listElement.onclick = (event) => {
+  const objectIndex = event.target.dataset.index;
+  if (objectIndex) {
+    checkAllElems();
+    popup.classList.add("active");
+    body.classList.add("noscroll");
+  }
+  console.log(objectIndex);
+};
+
+popup.onclick = (event) => {
+  const popup = event.target.dataset.index;
+  console.log(popup);
+};
+
+if (closePopup) {
+  closePopup.onclick = () => {
+    popup.classList.remove("active");
+    body.classList.remove("noscroll");
+  };
+
+  bgPopup.onclick = () => {
+    popup.classList.remove("active");
+    body.classList.remove("noscroll");
+  };
+}
+
+function checkAllElems() {
+  for (let i = 0; i < elementsList.length; i++) {
+    infoPopup.innerHTML = getPopupTemplate(elementsList[i], i);
+  }
+}
+
+function getPopupTemplate(e, i) {
+  return `
+        <div class="popup__info">
+        <div class="popup__info-top" data-index="${i}"></div>
+          <h4 class="popup__title">
+            ${e.title}
+          </h4>
+          <p class="popup__descr">
+            ${e.description}
+          </p>
+          <div class="popup__wrapper-img">
+            <img class="popup__img" src="img/${e.img}.jpg" alt="item img">
+          </div>
+        </div>
+  `;
 }
