@@ -153,7 +153,7 @@ function createElementFromList(arr) {
   arr.forEach((e) => (e.value = ""));
 }
 
-// Функция с готовым HTML кодом, которая принимающая данные объекта
+// Функция с готовым HTML кодом, которая принимает данные объекта
 function getNoteTemplate(e, i) {
   return `
           <div class="object">
@@ -185,46 +185,54 @@ function getNoteTemplate(e, i) {
   `;
 }
 
-// Функция по проверке инпута на значение, если нет значения, то по умолчанию будте 1
+// Функция по проверке инпута на значение, если нет значения, то по умолчанию будет 1
 function checkInnerInput(elemValue, newValue = 1) {
   return elemValue.length === 0 ? newValue : elemValue;
 }
 
 // popup scripts
 
+// слушаем дата фтрибут при клике на контейнер объектов
+// еслит нажимаем на объект, то открывается попап с данными объекта
 listElement.onclick = (event) => {
-  const objectIndex = event.target.dataset.index;
+  // клик по списку (слушатель)
+  const objectIndex = event.target.dataset.index; // достаем индекс объекта при помощи слушателя
   if (objectIndex) {
-    checkAllElems();
+    // если индекс есть
+    // то открываем попап с данными объекта
+    openPopup(objectIndex); // передаем индекс дата атрибута
+    popupStatus("add"); // включаем попап
+  }
+};
+
+// проверям появилась ли на странице кнопка выхода с попапа(крестик)
+if (closePopup) {
+  // при клике на кнопку попап закрываем
+  closePopup.onclick = () => popupStatus("remove");
+  // при клике за пределы попапа - закрываем попап
+  bgPopup.onclick = () => popupStatus("remove");
+}
+
+// функция для открытия и закрытия попапа
+function popupStatus(status) {
+  // если remove, то закрываем попап
+  if (status === "remove") {
+    popup.classList.remove("active");
+    body.classList.remove("noscroll");
+  }
+  // если add, то открываем попап
+  if (status === "add") {
     popup.classList.add("active");
     body.classList.add("noscroll");
   }
-  console.log(objectIndex);
-};
-
-popup.onclick = (event) => {
-  const popup = event.target.dataset.index;
-  console.log(popup);
-};
-
-if (closePopup) {
-  closePopup.onclick = () => {
-    popup.classList.remove("active");
-    body.classList.remove("noscroll");
-  };
-
-  bgPopup.onclick = () => {
-    popup.classList.remove("active");
-    body.classList.remove("noscroll");
-  };
 }
 
-function checkAllElems() {
-  for (let i = 0; i < elementsList.length; i++) {
-    infoPopup.innerHTML = getPopupTemplate(elementsList[i], i);
-  }
+// функция открытия попапа конкретного объекта
+function openPopup(index) { // передаем индекс объекта
+  infoPopup.innerHTML = getPopupTemplate(elementsList[index], index);
 }
 
+// Функция с готовым HTML кодом, которая принимает данные объекта
 function getPopupTemplate(e, i) {
   return `
         <div class="popup__info">
